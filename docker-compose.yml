@@ -1,0 +1,27 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  mongodb-eduhub:
+    image: mongo:7.0
+    container_name: mongodb-eduhub-api
+    restart: unless-stopped
+    ports:
+      - "27018:27017"  # Porta externa 27018 para evitar conflitos
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: eduhub123
+      MONGO_INITDB_DATABASE: eduhub_db
+    volumes:
+      - mongodb_eduhub_data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - eduhub-network
+
+volumes:
+  mongodb_eduhub_data:
+    driver: local
+
+networks:
+  eduhub-network:
+    driver: bridge
