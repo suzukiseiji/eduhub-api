@@ -1,0 +1,116 @@
+# ===========================================
+# EduHub API - Spring Boot Configuration
+# ===========================================
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+# Spring Configuration
+spring:
+  application:
+    name: eduhub-api
+
+  # MongoDB Configuration
+  data:
+    mongodb:
+      uri: mongodb://admin:eduhub123@localhost:27018/eduhub_db?authSource=admin
+      database: eduhub_db
+
+  # Security Configuration (temporário - desabilitar para começar)
+  security:
+    user:
+      name: admin
+      password: admin123
+
+  # Jackson Configuration (JSON)
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# Logging Configuration
+logging:
+  level:
+    com.eduhub.api: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Management & Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Application specific properties
+eduhub:
+  jwt:
+    secret: eduhub-secret-key-change-in-production
+    expiration: 86400 # 24 hours in seconds
+  upload:
+    path: ./uploads
+    max-file-size: 10MB
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  # MongoDB para desenvolvimento
+  data:
+    mongodb:
+      uri: mongodb://admin:eduhub123@localhost:27018/eduhub_dev?authSource=admin
+      database: eduhub_dev
+
+# Log mais detalhado em dev
+logging:
+  level:
+    com.eduhub.api: DEBUG
+    org.springframework.data.mongodb.core: DEBUG
+
+---
+# Test Profile
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  # MongoDB em memória para testes (TestContainers)
+  data:
+    mongodb:
+      uri: mongodb://localhost/eduhub_test
+
+logging:
+  level:
+    com.eduhub.api: INFO
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  # MongoDB produção (será configurado depois)
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/eduhub_prod}
+
+# Log menos verboso em produção
+logging:
+  level:
+    com.eduhub.api: INFO
+    org.springframework.data.mongodb: WARN
