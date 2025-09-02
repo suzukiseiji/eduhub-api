@@ -60,7 +60,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         // Aqui seria com paginação, mas para teste vamos buscar todos
-        List<User> users = userService.findAll(null).getContent();
+        List<User> users = userService.findAllSimple();
         return ResponseEntity.ok(users);
     }
 

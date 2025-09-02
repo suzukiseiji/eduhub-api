@@ -72,6 +72,14 @@ public class UserService {
      * Listar todos os usuários com paginação
      * Equivale: User::paginate(10)
      */
+    public List<User> findAllSimple() {
+        return userRepository.findAll();
+    }
+
+    /**
+     * Listar todos os usuários com paginação
+     * Equivale: User::paginate(10)
+     */
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
