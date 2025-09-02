@@ -1,12 +1,19 @@
 package com.eduhub.api.model.entity;
 
 /**
- * Enum CourseCategory - Define as categorias dos cursos
+ * Enum CourseCategory - Categorias de cursos
  */
 public enum CourseCategory {
-    PROGRAMACAO("Programacao", "Logica de programacao e linguagem Java na pratica"),
-    BANCO_DE_DADOS("Banco de dados", "Banco de dados de forma facil"),
-    ADMINISTRACAO("Administracao", "Curso de Administracao");
+    PROGRAMMING("Programação", "Cursos de desenvolvimento de software"),
+    DESIGN("Design", "Cursos de design gráfico, UI/UX"),
+    BUSINESS("Negócios", "Cursos de empreendedorismo e gestão"),
+    MARKETING("Marketing", "Cursos de marketing digital e vendas"),
+    DATA_SCIENCE("Ciência de Dados", "Cursos de análise de dados e IA"),
+    LANGUAGES("Idiomas", "Cursos de línguas estrangeiras"),
+    MUSIC("Música", "Cursos de instrumentos e teoria musical"),
+    PHOTOGRAPHY("Fotografia", "Cursos de fotografia e edição"),
+    FITNESS("Fitness", "Cursos de exercícios e saúde"),
+    COOKING("Culinária", "Cursos de gastronomia e culinária");
 
     private final String displayName;
     private final String description;
@@ -16,11 +23,19 @@ public enum CourseCategory {
         this.description = description;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayName() { return displayName; }
+    public String getDescription() { return description; }
+
+    public static CourseCategory fromString(String category) {
+        if (category == null) return null;
+        for (CourseCategory cat : CourseCategory.values()) {
+            if (cat.name().equalsIgnoreCase(category)) {
+                return cat;
+            }
+        }
+        throw new IllegalArgumentException("Categoria inválida: " + category);
     }
 
-    public String getDescription() {
-        return description;
-    }
+    @Override
+    public String toString() { return displayName; }
 }
