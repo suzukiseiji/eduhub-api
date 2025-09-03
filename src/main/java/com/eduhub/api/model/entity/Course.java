@@ -187,7 +187,6 @@ public class Course {
         this.level = level;
         this.instructor = new InstructorInfo(instructor);
         this.price = price;
-        this.active = true;
     }
 
     // ===== MÉTODOS UTILITÁRIOS =====

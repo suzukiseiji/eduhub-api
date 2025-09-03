@@ -132,7 +132,6 @@ public class UserController {
     public ResponseEntity<Map<String, String>> seedUsers() {
         try {
             // Criar alguns usuários para teste
-            userService.createUser("Admin Sistema", "admin@eduhub.com", "admin123", UserProfile.ADMIN);
             userService.createUser("Maria Instrutora", "maria@eduhub.com", "123456", UserProfile.INSTRUCTOR);
             userService.createUser("Pedro Estudante", "pedro@eduhub.com", "123456", UserProfile.STUDENT);
             userService.createUser("Ana Estudante", "ana@eduhub.com", "123456", UserProfile.STUDENT);
