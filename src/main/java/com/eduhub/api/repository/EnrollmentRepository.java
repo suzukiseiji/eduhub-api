@@ -97,7 +97,6 @@ public interface EnrollmentRepository extends MongoRepository<Enrollment, String
     /**
      * Verificar se inscrição existe (boolean)
      */
-    @Query("{'student.id': ?0, 'course.id': ?1}")
     boolean existsByStudentIdAndCourseId(String studentId, String courseId);
 
     // ===== BUSCA POR STATUS =====
